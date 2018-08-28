@@ -84,8 +84,8 @@ public class ShortTcpClient {
                             ChannelPipeline pipeline = channel.pipeline();
                             pipeline.addLast(new LoggingHandler(LogLevel.INFO));
                             pipeline.addLast("IdleStateHandler", new IdleStateHandler(READ_TIMEOUT, WRITE_TIMEOUT, 0));
-                            pipeline.addLast("StringDecoder", new MessageEncryptDecoder());//解码器 这里要与服务器保持一致
-                            pipeline.addLast("StringEncoder", new MessageEncryptEncoder());
+//                            pipeline.addLast("StringDecoder", new MessageEncryptDecoder());//解码器 这里要与服务器保持一致
+//                            pipeline.addLast("StringEncoder", new MessageEncryptEncoder());
                             pipeline.addLast(new SimpleChannelInboundHandler<Map>() {
 
                                 @Override

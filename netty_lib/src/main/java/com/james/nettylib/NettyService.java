@@ -59,6 +59,7 @@ public class NettyService extends Service implements NettyListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         NettyClient.getInstance().setListener(this);
+        NettyClient.getInstance().setContext(getApplication());
         connect();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -107,13 +108,13 @@ public class NettyService extends Service implements NettyListener {
                         LogUtils.log(TAG, "MsgType:" + pushType + ", MsgInfo:" + (String) messageHolder.get("respInfo"));
                         List<GameMessageListener> listeners = MessageManager.getInstance().getListeners();
                         for (GameMessageListener l : listeners) {
-                            l.callback(new Gson().toJson(messageHolder,Map.class));
+                            l.callback(new Gson().toJson(messageHolder, Map.class));
                         }
                         break;
                     case PUSHTYPE_NOTIFY:
                         List<NotifyMessageListener> notifyListeners = MessageManager.getInstance().getNotifyListeners();
                         for (NotifyMessageListener l : notifyListeners) {
-                            l.callback(new Gson().toJson(messageHolder,Map.class));
+                            l.callback(new Gson().toJson(messageHolder, Map.class));
                         }
                         break;
                 }

@@ -1,17 +1,10 @@
-package com.james.nettylib.constant;
-
-import java.util.HashMap;
-import java.util.Map;
+package com.stonehiy.server.netty.constant;
 
 /**
  * Created by james on 2018/6/20.
  */
 
 public class NetworkConfig {
-    /**
-     * 测试服开关
-     */
-    public static boolean DEV = true;
 
 
     /**
@@ -20,20 +13,7 @@ public class NetworkConfig {
     public static String RSA_PUBLIC_KEY = "OjET9o7KBOCbhPmCQQjCEo5DKEuBJCxNpNFj6uuBDIZwGPvqCjEA8rQlLNFxafFgTL/PtR/d3MRQujaqJu+Q1Z0aWrhubv+LLZIlh37NmAd0OMR4q2wIDAQAB";
 
 
-    /**
-     * 服务器网关列表
-     */
-    public static final String[] GATE_LIST = {
-            "192.168.0.130:9999",
 
-    };
-
-    /**
-     * 测试服网关列表
-     */
-    public static final String[] TEST_GATE_LIST = {
-            "192.168.0.130:9999",
-    };
 
     /**
      * 文件上传服务器

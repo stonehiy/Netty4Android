@@ -40,8 +40,10 @@ public class NettyClientInitializer extends ChannelInitializer<SocketChannel> {
             pipeline.addLast(new LoggingHandler(LogLevel.INFO));    // 开启日志，可以设置日志等级
         }
         pipeline.addLast("IdleStateHandler", new IdleStateHandler(NetworkConfig.READ_IDLE_TIME_SECOND, NetworkConfig.HEART_BEAT_TIME, 0));
-        pipeline.addLast("StringDecoder", new MessageEncryptDecoder());//解码器 这里要与服务器保持一致
-        pipeline.addLast("StringEncoder", new MessageEncryptEncoder());//编码器 这里要与服务器保持一致
+        pipeline.addLast("StringDecoder", new MessageDecoder());//解码器 这里要与服务器保持一致
+        pipeline.addLast("StringEncoder", new MessageEncoder());//编码器 这里要与服务器保持一致
+//        pipeline.addLast("StringDecoder", new MessageEncryptDecoder());//解码器 这里要与服务器保持一致
+//        pipeline.addLast("StringEncoder", new MessageEncryptEncoder());//编码器 这里要与服务器保持一致
         pipeline.addLast(new NettyClientHandler(listener));
     }
 }

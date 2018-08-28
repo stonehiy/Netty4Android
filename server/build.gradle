@@ -1,0 +1,11 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation "io.netty:netty-all:4.1.28.Final"
+    implementation "com.google.code.gson:gson:2.8.5"
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
