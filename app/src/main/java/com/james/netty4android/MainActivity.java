@@ -15,11 +15,13 @@ import com.james.nettylib.netty.NettyClient;
 import com.james.nettylib.netty.NettyListener;
 import com.james.nettylib.netty.Request;
 import com.james.nettylib.netty.ResponseListener;
+import com.james.nettylib.netty.util.LogUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends Activity implements ConnectionManager.ConnectionListener {
+    private static final String TAG = MainActivity.class.getName();
     private EditText mEditText;
     private Button mLoginBtn;
     private TextView mResultTextView;
@@ -44,7 +46,7 @@ public class MainActivity extends Activity implements ConnectionManager.Connecti
     }
 
     /**
-     * 发送消息测试
+     * 登录
      */
     private void sendMessage() {
         Map<String, String> params = new HashMap<String, String>();
@@ -55,12 +57,23 @@ public class MainActivity extends Activity implements ConnectionManager.Connecti
 
             @Override
             public void onSuccess(String data) {
+                LogUtils.logError(TAG, "sessionlogin onSuccess = " + data);
+                NettyClient.getInstance().sendAESKey(new ResponseListener() {
+                    @Override
+                    public void onSuccess(String data) {
+                        LogUtils.log(TAG, "sendAESKey onSuccess");
+                    }
 
+                    @Override
+                    public void onFail(int errCode) {
+                        LogUtils.log(TAG, "sendAESKey onFail errCode = " + errCode);
+                    }
+                });
             }
 
             @Override
             public void onFail(int errCode) {
-
+                LogUtils.logError(TAG, "sessionlogin onFail errCode = " + errCode);
             }
         }), null);
     }

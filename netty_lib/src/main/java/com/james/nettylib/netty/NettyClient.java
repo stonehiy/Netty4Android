@@ -80,7 +80,7 @@ public class NettyClient {
 
     public synchronized NettyClient connect() {
         isDoReconnect = true;
-        if(isConnecting){
+        if (isConnecting) {
             return this;
         }
         if (!isConnect) {
@@ -106,6 +106,7 @@ public class NettyClient {
                             channel = future.channel();
                             isConnect = true;
                             isReconnecting = false;
+
                         } else {
                             isConnect = false;
                             isReconnecting = false;
@@ -168,8 +169,8 @@ public class NettyClient {
     /**
      * 断开连接|不自动重连了
      */
-    public void shutDown(){
-        if(isConnect){
+    public void shutDown() {
+        if (isConnect) {
             setDoReconnect(false);
             disconnect();
         }
@@ -179,8 +180,8 @@ public class NettyClient {
      * 断开连接
      */
     public void disconnect() {
-        LogUtils.logError(TAG,"调用disconnect主动关闭连接");
-        if(group != null){
+        LogUtils.logError(TAG, "调用disconnect主动关闭连接");
+        if (group != null) {
             group.shutdownGracefully();
             sendAesKeyFinish = false;
             isReconnecting = false;
@@ -191,10 +192,11 @@ public class NettyClient {
 
     /**
      * 重连
+     *
      * @return
      */
     public synchronized void reconnect() {
-        if(!isDoReconnect){
+        if (!isDoReconnect) {
             return;
         }
         // 有网络且没有重连则进行重连
@@ -250,7 +252,7 @@ public class NettyClient {
             return;
         }
         // 请求是否重复发送
-        if(RequestManager.getInstance().isRepeatRequest(request)){
+        if (RequestManager.getInstance().isRepeatRequest(request)) {
             return;
         }
         // 管理请求和响应
@@ -261,7 +263,7 @@ public class NettyClient {
             channel.writeAndFlush(request).addListener(new FutureListener() {
                 @Override
                 public void success() {
-                    LogUtils.logError(TAG, "发送成功--->Method===="+request.getServiceName());
+                    LogUtils.logError(TAG, "发送成功--->Method====" + request.getServiceName());
                 }
 
                 @Override
@@ -317,15 +319,16 @@ public class NettyClient {
 
     /**
      * 发送秘钥
+     *
      * @param listener
      */
-    public void sendAESKey(final ResponseListener listener){
+    public void sendAESKey(final ResponseListener listener) {
         NettyClient.getInstance().sendMessage(new Request("syncAesKey", null, new ResponseListener() {
             @Override
             public void onSuccess(String data) {
                 sendAesKeyFinish = true;
                 listener.onSuccess(data);
-                LogUtils.logError(TAG,"syncAesKey请求响应成功");
+                LogUtils.logError(TAG, "syncAesKey请求响应成功");
                 // 请求重发
                 RequestManager.getInstance().resend();
             }
@@ -340,17 +343,19 @@ public class NettyClient {
 
     /**
      * 是否发送密钥完成
+     *
      * @return
      */
-    public boolean isSendAesKeyFinish(){
+    public boolean isSendAesKeyFinish() {
         return sendAesKeyFinish;
     }
 
     /**
      * 是否重连
+     *
      * @param doReconnect
      */
-    public void setDoReconnect(boolean doReconnect){
+    public void setDoReconnect(boolean doReconnect) {
         isDoReconnect = doReconnect;
     }
 

@@ -24,7 +24,7 @@ public class NetworkConfig {
      * 服务器网关列表
      */
     public static final String[] GATE_LIST = {
-            "192.168.0.130:9999",
+            "192.168.0.113:9999",
 
     };
 
@@ -32,7 +32,7 @@ public class NetworkConfig {
      * 测试服网关列表
      */
     public static final String[] TEST_GATE_LIST = {
-            "192.168.0.130:9999",
+            "192.168.0.113:9999",
     };
 
     /**
